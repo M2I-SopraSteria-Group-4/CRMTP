@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -27,25 +26,39 @@ public class OrderController {
     @GetMapping("/list")
     public String listOrders(Model model){
         model.addAttribute("orders", oService.findAll());
-        return "order/list";
+        return "orders/list";
     }
 
     @GetMapping("/{id}")
     public String showOrder(Model model, @PathVariable int id){
         model.addAttribute("order", oService.findById(id));
-        return "order/show";
+        return "orders/one";
     }
 
-    @GetMapping("/create")
-    public String showCreate(){
-        return "order/create";
+//    @GetMapping("/create")
+//    public String showCreate(Order o){
+//        return "orders/create";
+//    }
+
+    @GetMapping("/create/{id}")
+    public String showCreate(Order o, @PathVariable("id") int id){
+        return "orders/create";
     }
-    @PostMapping("/create")
+
+/*    @PostMapping("/create")
     public String createOrder(@Valid Order o, BindingResult result){
         if (result.hasErrors()) {
-            return "order/create";
+            return "orders/create";
         }
         oService.addOrder(o);
+        return "redirect:/order/list";
+    }*/
+    @PostMapping("/create/{id}")
+    public String createOrderById(@PathVariable("id") int id,@Valid Order o, BindingResult result){
+        if (result.hasErrors()) {
+            return "orders/create";
+        }
+        oService.createByClientId(id,o);
         return "redirect:/order/list";
     }
 
@@ -58,13 +71,13 @@ public class OrderController {
     @GetMapping("/update/{id}")
     public String updateView(@PathVariable("id") int id, Model model){
         model.addAttribute("order", oService.findById(id));
-        return "order/update";
+        return "orders/update";
     }
 
     @PostMapping("/update/{id}")
     public String updateOrder(@PathVariable("id") int id, @Valid Order o, BindingResult result){
         if (result.hasErrors()) {
-            return "order/update";
+            return "orders/update";
         }
         oService.updateOrder(o);
         return "redirect:/order/list";

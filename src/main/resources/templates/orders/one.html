@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Get client</title>
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>Show Order :</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body style="text-align: center;">
+<header class="container col-md-6 my-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" th:href="@{/client/list}">Clients List </a>
+                <a class="nav-item nav-link active" th:href="@{/client/create}">Create Client</a>
+                <a class="nav-item nav-link active" th:href="@{/order/list}">Orders List</a>
+                <a class="nav-item nav-link active" th:href="@{/order/create}">Create Order</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<form class="form">
+    <div>
+        <div>
+            <p>Id: <span th:text="${order.id}"></span> </p>
+        </div>
+        <div>
+            <p>Type de préstation: <span th:text="${order.typePresta}"></span> </p>
+        </div>
+        <div>
+            <p>Designation: <span th:text="${order.designation}"></span> </p>
+        </div>
+        <div>
+            <p>Nombre des jours: <span th:text="${order.nbDays}"></span> </p>
+        </div>
+        <div>
+            <p>State: <span th:text="${order.state}"></span> </p>
+        </div>
+
+
+        <div>
+            <p>Client: <span th:text="${order.client.firstName}"></span> <span th:text="${order.client.lastName}"></span> </p>
+        </div>
+    </div>
+</form>
+</body>
+</html>

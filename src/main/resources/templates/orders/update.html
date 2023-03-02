@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Insert title here</title>
+  <link th:href="@{/style.css}" rel="stylesheet" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <title>Create Client</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<header class="container col-md-6 my-5">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" th:href="@{/client/list}">Clients List </a>
+        <a class="nav-item nav-link active" th:href="@{/client/create}">Create Client</a>
+        <a class="nav-item nav-link active" th:href="@{/order/list}">Orders List</a>
+        <a class="nav-item nav-link active" th:href="@{/order/create}">Create Order</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+<form action="#" th:action="@{/order/update/{id}(id=${order.id})}" th:object="${order}" method="POST" class="form">
+
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="typePresta" th:field="*{typePresta}" placeholder="typePresta">
+    <label for="typePresta">Type de prestation</label>
+    <span  th:if="${#fields.hasErrors('typePresta')}" th:errors="*{typePresta}"></span>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="designation" th:field="*{designation}" placeholder="designation">
+    <label for="designation">Designation</label>
+    <span  th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}" class="text-danger"></span>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="number" class="form-control" id="nbDays" th:field="*{nbDays}" placeholder="nbDays">
+    <label for="nbDays">Nombre des jours</label>
+    <span  th:if="${#fields.hasErrors('nbDays')}" th:errors="*{nbDays}" class="text-danger"></span>
+  </div>
+
+
+
+  <div class="form-floating mb-3">
+    <input type="number" class="form-control" id="state" th:field="*{state}" placeholder="state">
+    <label for="state">state</label>
+    <span  th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="text-danger"></span>
+  </div>
+
+
+  <input type="submit" value ="Create">
+
+</form>
+
+</body>
+</html>

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-
 @Controller
 @RequestMapping("/client")
 public class ClientController {
@@ -27,24 +26,24 @@ public class ClientController {
     @GetMapping("/list")
     public String listClients(Model model) {
         model.addAttribute("clients", cService.findAll());
-        return "client/list";
+        return "clients/list";
     }
 
     @GetMapping("/{id}")
     public String showClient(Model model, @PathVariable int id) {
         model.addAttribute("client", cService.findById(id));
-        return "client/show";
+        return "clients/one";
     }
 
     @GetMapping("/create")
-    public String showCreate(){
-        return "client/create";
+    public String showCreate(Client c){
+        return "clients/create";
     }
 
     @PostMapping("/create")
-    public String createClient(Client c, BindingResult result){
+    public String createClient(@Valid Client c, BindingResult result){
         if (result.hasErrors()) {
-            return "client/create";
+            return "clients/create";
         }
         cRepo.save(c);
         return "redirect:/client/list";
@@ -57,15 +56,15 @@ public class ClientController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateView(@PathVariable("id") int id, Model model){
+    public String updateView(@PathVariable("id") int id, Client c, Model model){
         model.addAttribute("client", cService.findById(id));
-        return "update";
+        return "clients/update";
     }
 
     @PostMapping("/update/{id}")
     public String updateClient(@PathVariable("id") int id, @Valid Client c, BindingResult result){
         if(result.hasErrors()) {
-            return "update";
+            return "clients/update";
         }
         cService.updateClient(c);
         return "redirect:/client/list";

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <link rel="icon" href="https://th.bing.com/th/id/R.e7ec9885c16854b8650364db9f0041e0?rik=rjnABaDFQeFSkA&pid=ImgRaw&r=0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <title>All Orders</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+        <header class="container col-md-6 my-5">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active" th:href="@{/client/list}">Clients List </a>
+                        <a class="nav-item nav-link active" th:href="@{/client/create}">Create Client</a>
+                        <a class="nav-item nav-link active" th:href="@{/order/list}">Orders List</a>
+                        <a class="nav-item nav-link active" th:href="@{/order/create}">Create Order</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+<script th:inline="javascript">
+	function myFunction() {
+	  alert("You're deleting a order !");
+	}
+	</script>
+<h1 style="text-align: center;">Orders list :</h1>
+<table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+        <td>Id</td>
+        <td>Type de Prestation</td>
+        <td>Désignation</td>
+        <td>Nombre de jours</td>
+        <td>Etat</td>
+        <td>Client</td>
+        <td>Action</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td> <a th:href="@{/order/{id}(id=${order.id} )}" th:text="${order.id}" ></a>  </td>
+        <td th:text="${order.typePresta}" ></td>
+        <td th:text="${order.designation}" ></td>
+        <td th:text="${order.nbDays}" ></td>
+        <td th:text="${order.state}" ></td>
+        <td> <a th:href="@{/client/{id}(id=${order.client.id} )}" th:text="${order.client.firstName}" ></a>  </td>
+        <td> <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Action
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/order/update/{id}(id=${order.id} )}" >Update</a></li>
+                    <li><a class="dropdown-item" th:onclick="myFunction()" th:href="@{/order/delete/{id}(id=${order.id} )}" >Delete</a></li>
+                </ul>
+            </div>
+        </div> </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

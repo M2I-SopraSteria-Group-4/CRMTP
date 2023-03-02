@@ -1,6 +1,8 @@
 package com.SpringCRMTP.services;
 
+import com.SpringCRMTP.entity.Client;
 import com.SpringCRMTP.entity.Order;
+import com.SpringCRMTP.repository.ClientRepository;
 import com.SpringCRMTP.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ public class OrderService {
 
     @Autowired
     OrderRepository oRepo;
+
+    @Autowired
+    ClientRepository cRepo;
 
     public List<Order> findAll(){
         return oRepo.findAll();
@@ -31,6 +36,14 @@ public class OrderService {
     }
 
     public void updateOrder(Order o){
+        oRepo.save(o);
+    }
+
+    public void createByClientId(int client_id, Order o){
+        Client c = cRepo.findById(client_id).orElse(null);
+        if(c!=null){
+            o.setClient(c);
+        }
         oRepo.save(o);
     }
 }
