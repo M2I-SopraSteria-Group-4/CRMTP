@@ -1,4 +1,4 @@
-package com.SpringCRMTP.api;
+package com.SpringCRM.api;
 
 import java.util.List;
 

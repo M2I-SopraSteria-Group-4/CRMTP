@@ -66,8 +66,7 @@
 		<thead>
 	        <tr>
  
- 
-				 
+  
 				<td scope="col">Nom</td> 
 				<td scope="col">Prénom</td>
 				<td scope="col">Adresse-mail</td>
@@ -85,8 +84,8 @@
 	 </tr>
 	</thead>
 	<tbody>
-	<tr th:each="author:${listAuthors}">
-	   <td th:text="${client.id}" scope="row"></td>
+	<tr th:each="client:${listClients}">
+	   
 	   <td th:text="${client.firstName}"></td>
        <td th:text="${client.lastName}"></td>
        <td th:text="${client.email}"></td>

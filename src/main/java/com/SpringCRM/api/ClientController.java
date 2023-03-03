@@ -1,4 +1,4 @@
-package com.SpringCRMTP.api;
+package com.SpringCRM.api;
 
 import java.util.List;
 
@@ -81,7 +81,7 @@ public class ClientController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteClient(@PathVariable("id") Client id )
+	public void deleteClient(@PathVariable("id") int id )
 	{
 		cService.delete(id);
 	}

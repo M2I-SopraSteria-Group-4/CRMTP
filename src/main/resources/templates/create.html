@@ -1,0 +1,75 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon formulaire</title>
+  <!-- Ajout de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <form th:action="@{/create}"th:object="${client}"method="POST">
+
+      <div class="form-group">
+        <label for="firstName">Prénom :</label>
+        <input type="text" class="form-control" id="firstName" name="firstName">
+         <span th:if="${#fields.hasErrors('firstName')}"th:errors="*{firstName}"></span>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Nom :</label>
+        <input type="text" class="form-control" id="lastName" name="lastName">
+        <span th:if="${#fields.hasErrors('lastName')}"th:errors="*{lastName}"></span>
+      </div>
+      <div class="form-group">
+        <label for="email">Adress-mail:</label>
+        <input type="text" class="form-control" id="email" name="email">
+        <span th:if="${#fields.hasErrors('email')}"th:errors="*{email}"></span>
+      </div>
+      <div class="form-group">
+        <label for="phone">Numéro Teléphone :</label>
+        <input type="text" class="form-control" id="phone" name="phone">
+        <span th:if="${#fields.hasErrors('phone')}"th:errors="*{phone}"></span>
+      </div>
+      <div class="form-group">
+        <label for="address">Adresse :</label>
+        <input type="text" class="form-control" id="address" name="address">
+          <span th:if="${#fields.hasErrors('address')}"th:errors="*{address}"></span>
+      </div>
+     
+      <div class="form-group">
+        <label for="address">Zip-Code :</label>
+        <input type="text" class="form-control" id="zipCode" name="zipCode">
+          <span th:if="${#fields.hasErrors('zipCode')}"th:errors="*{zipCode}"></span>
+      </div>
+        <div class="form-group">
+        <label for="city">Ville:</label>
+        <input type="text" class="form-control" id="city" name="city">
+          <span th:if="${#fields.hasErrors('city')}"th:errors="*{city}"></span>
+      </div>
+       </div>
+        <div class="form-group">
+        <label for="country">Pays:</label>
+        <input type="text" class="form-control" id="country" name="country">
+  
+      </div>
+       </div>
+        <div class="form-group">
+        <label for="state">Etat:</label>
+        <input type="number" class="form-control" id="state" name="state">
+      
+      </div>
+      <button type="submit" class="btn btn-primary">Ajouter un Client</button>
+    </form>
+      <a href="/client" class="btn btn-primary">Revenir à la liste des clients</a>
+  </div>
+  <!-- Ajout des scripts JavaScript de Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+     
+     
+     
+</html>    

@@ -24,9 +24,9 @@ public class ClientService {
 		return cRepo.findById(id).orElse(null);
 	}
 
-	public void delete (Client c)
+	public void delete (Integer c)
 	{
-		cRepo.delete(c);
+		cRepo.deleteById(c);
 	}
 	
 	public void  updateClient(int id, Client c)
