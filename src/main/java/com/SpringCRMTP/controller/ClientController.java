@@ -1,6 +1,7 @@
 package com.SpringCRMTP.controller;
 
 import com.SpringCRMTP.entity.Client;
+import com.SpringCRMTP.entity.Order;
 import com.SpringCRMTP.repository.ClientRepository;
 import com.SpringCRMTP.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
+
 @Controller
 @RequestMapping("/client")
 public class ClientController {
@@ -31,6 +34,8 @@ public class ClientController {
 
     @GetMapping("/{id}")
     public String showClient(Model model, @PathVariable int id) {
+        List<Order> orders = cService.findById(id).getOrders();
+        model.addAttribute("orders",orders);
         model.addAttribute("client", cService.findById(id));
         return "clients/one";
     }

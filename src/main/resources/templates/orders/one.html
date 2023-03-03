@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Get client</title>
     <link th:href="@{/style.css}" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -33,7 +33,7 @@
             <p>Id: <span th:text="${order.id}"></span> </p>
         </div>
         <div>
-            <p>Type de préstation: <span th:text="${order.typePresta}"></span> </p>
+            <p>Type de prÃ©station: <span th:text="${order.typePresta}"></span> </p>
         </div>
         <div>
             <p>Designation: <span th:text="${order.designation}"></span> </p>
@@ -48,6 +48,12 @@
 
         <div>
             <p>Client: <span th:text="${order.client.firstName}"></span> <span th:text="${order.client.lastName}"></span> </p>
+        </div>
+
+        <div>
+            <a th:href="@{/order/update/{id}(id=${order.id} )}" >Update</a>
+            <a th:href="@{/order/delete/{id}(id=${order.id} )}" >Delete</a>
+            <a class="nav-item nav-link active" th:href="@{/client/{id}(id=${order.client.id})}">Show Client</a>
         </div>
     </div>
 </form>

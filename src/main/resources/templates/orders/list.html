@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" >
 <head>
     <link rel="icon" href="https://th.bing.com/th/id/R.e7ec9885c16854b8650364db9f0041e0?rik=rjnABaDFQeFSkA&pid=ImgRaw&r=0">
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -38,8 +38,8 @@
         <td>Type de Prestation</td>
         <td>Désignation</td>
         <td>Nombre de jours</td>
+        <td>Prix Unitaire</td>
         <td>Etat</td>
-        <td>Client</td>
         <td>Action</td>
     </tr>
     </thead>
@@ -50,8 +50,8 @@
         <td th:text="${order.typePresta}" ></td>
         <td th:text="${order.designation}" ></td>
         <td th:text="${order.nbDays}" ></td>
-        <td th:text="${order.state}" ></td>
-        <td> <a th:href="@{/client/{id}(id=${order.client.id} )}" th:text="${order.client.firstName}" ></a>  </td>
+        <td th:text="${order.unitPrice}" ></td>
+        <td th:text="${order.state == 1 ? 'OPTION' : order.state == 2 ? 'CONFIRMED' : 'CANCELLED'}"></td>
         <td> <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

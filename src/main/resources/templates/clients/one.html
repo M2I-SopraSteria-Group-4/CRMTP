@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <title>Get client</title>
     <link th:href="@{/style.css}" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -22,7 +22,7 @@
                 <a class="nav-item nav-link active" th:href="@{/client/list}">Clients List </a>
                 <a class="nav-item nav-link active" th:href="@{/client/create}">Create Client</a>
                 <a class="nav-item nav-link active" th:href="@{/order/list}">Orders List</a>
-                <a class="nav-item nav-link active" th:href="@{/order/create/{id}(id=${client.id})}">Create Order</a>
+                <a class="nav-item nav-link active" th:href="@{/order/create}">Create Order</a>
             </div>
         </div>
     </nav>
@@ -57,14 +57,52 @@
             <p>Country: <span th:text="${client.country}"></span> </p>
         </div>
         <div>
-            <p>State: <span th:text="${client.state}"></span> </p>
+            <p> State : <span th:text="${client.state == 1} ? 'actif' : 'inactif'"></span></p>
         </div>
         <div>
-            <a th:href="@{/update/{id}(id=${client.id} )}" >Update</a>
-            <a th:href="@{/delete/{id}(id=${client.id} )}" >Delete</a>
-            <a th:href="@{client/list}" >All</a>
+            <a th:href="@{/client/update/{id}(id=${client.id} )}" >Update</a>
+            <a th:href="@{/client/delete/{id}(id=${client.id} )}" >Delete</a>
+            <a th:href="@{/order/create/{id}(id=${client.id})}">Create Order</a>
         </div>
     </div>
 </form>
+<h1 style="text-align: center;">Orders list :</h1>
+
+<table class="table table-striped" style="width:50%;">
+    <thead class="table-dark">
+    <tr>
+        <td>Id</td>
+        <td>Type de Prestation</td>
+        <td>Désignation</td>
+        <td>Nombre de jours</td>
+        <td>Prix Unitaire</td>
+        <td>Etat</td>
+        <td>Action</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td> <a th:href="@{/order/{id}(id=${order.id} )}" th:text="${order.id}" ></a>  </td>
+        <td th:text="${order.typePresta}" ></td>
+        <td th:text="${order.designation}" ></td>
+        <td th:text="${order.nbDays}" ></td>
+        <td th:text="${order.unitPrice}" ></td>
+        <td th:text="${order.state}" ></td>
+        <td> <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Action
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/order/update/{id}(id=${order.id} )}" >Update</a></li>
+                    <li><a class="dropdown-item" th:onclick="myFunction()" th:href="@{/order/delete/{id}(id=${order.id} )}" >Delete</a></li>
+                </ul>
+            </div>
+        </div> </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.SpringCRMTP.controller;
 
+import com.SpringCRMTP.entity.Client;
 import com.SpringCRMTP.entity.Order;
 import com.SpringCRMTP.repository.OrderRepository;
+import com.SpringCRMTP.services.ClientService;
 import com.SpringCRMTP.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
+
 @Controller
 @RequestMapping("/order")
 public class OrderController {
 
     @Autowired
     OrderService oService;
+    @Autowired
+    ClientService cService;
+
 
     @Autowired
     OrderRepository oRepo;
@@ -39,12 +46,6 @@ public class OrderController {
 //    public String showCreate(Order o){
 //        return "orders/create";
 //    }
-
-    @GetMapping("/create/{id}")
-    public String showCreate(Order o, @PathVariable("id") int id){
-        return "orders/create";
-    }
-
 /*    @PostMapping("/create")
     public String createOrder(@Valid Order o, BindingResult result){
         if (result.hasErrors()) {
@@ -53,8 +54,16 @@ public class OrderController {
         oService.addOrder(o);
         return "redirect:/order/list";
     }*/
+    @GetMapping("/create/{id}")
+    public String showCreate(Model m,Client c, Order o, @PathVariable("id") int id){
+        Client client = cService.findById(id);
+        m.addAttribute("client", client);
+        return "orders/create";
+    }
+
+
     @PostMapping("/create/{id}")
-    public String createOrderById(@PathVariable("id") int id,@Valid Order o, BindingResult result){
+    public String createOrderById(@PathVariable("id") int id,@Valid Order o, Client c, BindingResult result){
         if (result.hasErrors()) {
             return "orders/create";
         }
@@ -70,7 +79,11 @@ public class OrderController {
 
     @GetMapping("/update/{id}")
     public String updateView(@PathVariable("id") int id, Model model){
-        model.addAttribute("order", oService.findById(id));
+        Order o = oService.findById(id);
+        Client c = o.getClient();
+        int clientId = c.getId();
+        model.addAttribute("order", o);
+        model.addAttribute("client", c);
         return "orders/update";
     }
 

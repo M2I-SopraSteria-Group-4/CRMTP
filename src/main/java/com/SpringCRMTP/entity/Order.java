@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
@@ -21,11 +23,15 @@ public class Order {
 
     @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id ;
-
+    @Length(max = 64, min = 1, message = "max 64, min 4 chars")
     private String typePresta;
+    @Length(max = 64, min = 1, message = "max 64, min 4 chars")
     private String designation;
     @Positive
     private int nbDays;
+    @Positive
+    private int unitPrice;
+    @Range(min = 0, max = 2, message = "Doit être entre 0 et 2")
     private int state;
 
     @ManyToOne

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="ISO-8859-1">
+  <meta charset="UTF-8">
   <title>Insert title here</title>
   <link th:href="@{/style.css}" rel="stylesheet" type="text/css" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,11 +33,7 @@
 
 <form action="#" th:action="@{/order/create/{id}(id=${client.id})}" th:object="${order}" method="POST" class="form">
 
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="clientId" th:field="*{client.id}" placeholder="client.id">
-    <label for="clientId">Client Id</label>
-    <span  th:if="${#fields.hasErrors('client.id')}" th:errors="*{client.id}"></span>
-  </div>
+
   <div class="form-floating mb-3">
     <input type="text" class="form-control" id="typePresta" th:field="*{typePresta}" placeholder="typePresta">
     <label for="typePresta">Type de prestation</label>
@@ -54,6 +50,12 @@
     <input type="number" class="form-control" id="nbDays" th:field="*{nbDays}" placeholder="nbDays">
     <label for="nbDays">Nombre des jours</label>
     <span  th:if="${#fields.hasErrors('nbDays')}" th:errors="*{nbDays}" class="text-danger"></span>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="number" class="form-control" id="unitPrice" th:field="*{unitPrice}" placeholder="unitPrice">
+    <label for="unitPrice">Prix Unitaire :</label>
+    <span  th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}" class="text-danger"></span>
   </div>
 
 

@@ -41,9 +41,19 @@ public class OrderService {
 
     public void createByClientId(int client_id, Order o){
         Client c = cRepo.findById(client_id).orElse(null);
-        if(c!=null){
             o.setClient(c);
-        }
+
         oRepo.save(o);
+    }
+
+    public void updateRestOrder(int id, Order o) {
+        Order order = oRepo.findById(id).orElse(null);
+        if(order!=null){
+            order.setTypePresta(o.getTypePresta());
+            order.setDesignation(o.getDesignation());
+            order.setNbDays(o.getNbDays());
+            order.setState(o.getState());
+            oRepo.save(order);
+        }
     }
 }

@@ -6,9 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -28,11 +31,17 @@ public class Client {
     private String lastName;
     @Email(message = "email not valid")
     private String email;
+    @NotNull(message = "Phone number is required")
     private String phone;
+    @NotEmpty
     private String address;
+    @Length(max = 5, min = 5, message = "Zip must be 5 characters long")
     private String zipCode;
+    @NotEmpty
     private String city;
+    @NotEmpty
     private String country;
+    @Range(min = 1, max = 2, message = "Doit être entre 1 et 2")
     private int state;
 
     @OneToMany(targetEntity = Order.class, mappedBy = "client")

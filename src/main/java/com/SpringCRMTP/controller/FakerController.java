@@ -51,6 +51,7 @@ public class FakerController {
         String designation = f.internet().domainWord();
         int nbDays = f.number().numberBetween(1, 30);
         int state = f.number().numberBetween(0, 3);
+        int unit = f.number().numberBetween(0, 30);
         Client c = cService.getRandomClient();
 
         Order o = new Order(typePresta, designation, nbDays, state, c );

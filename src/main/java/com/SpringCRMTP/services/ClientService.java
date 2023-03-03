@@ -38,6 +38,19 @@ public class ClientService {
     }
 
 
-
-
+    public void updateRestClient(int id, Client c) {
+        Client client = cRepo.findById(id).orElse(null);
+        if(client!=null){
+            client.setFirstName(c.getFirstName());
+            client.setLastName(c.getLastName());
+            client.setPhone(c.getPhone());
+            client.setEmail(c.getEmail());
+            client.setAddress(c.getAddress());
+            client.setCity(c.getCity());
+            client.setCountry(c.getCountry());
+            client.setZipCode(c.getZipCode());
+            client.setState(c.getState());
+            cRepo.save(client);
+        }
+    }
 }
