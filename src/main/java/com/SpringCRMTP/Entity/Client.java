@@ -64,6 +64,12 @@ public class Client {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	public void add(Client c) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

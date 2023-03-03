@@ -32,12 +32,11 @@ public class Order {
 	private String designation;
 	@Positive
 	private int nbDays;
+	
 	private int state;
     
-	   @ManyToOne  
-	    @JoinTable( name = "T_Orders_Clients_Associations",
-	                joinColumns = @JoinColumn( name = "idOrder" ),
-	                inverseJoinColumns = @JoinColumn( name = "id" ) )
+	    @ManyToOne
+	    @JoinColumn(name="id")
 	    private Client client;
 
 	

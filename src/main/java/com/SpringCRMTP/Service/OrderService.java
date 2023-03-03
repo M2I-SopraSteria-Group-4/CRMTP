@@ -39,6 +39,11 @@ public class OrderService {
 	{
 		oRepo.save(o);
 	}
+
+	public void update(int id, Order o) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }
