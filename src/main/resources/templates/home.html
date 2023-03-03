@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Welcom to FHK CRM</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='style.css'>
+    <script src="/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+</head>
+<body>
+        <nav>
+          <div class="navbar">
+            <div class="container nav-container">
+                <input class="checkbox" type="checkbox" name="" id="" />
+                <div class="hamburger-lines">
+                  <span  class="line line1"></span>
+                  <span  class="line line2"></span>
+                  <span  class="line line3"></span>
+                </div>  
+              <div class="logo">
+                <h1>FHK</h1>
+              </div>
+              <div class="menu-items">
+                <li><a href="/">Home</a></li>
+                <li><a href="/client">New Customer</a></li>
+                <li><a href="/order">New service</a></li>
+                <li><a href="/showclients">Show customers</a></li>
+                <li><a href="/showservices">Show all services</a></li>
+                <li><a href="#">contact</a></li>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <script>
+            "use strict";
+const body=document.getElementsByTagName("body").item(0);
+const TP=2*Math.PI;
+const CSIZE=400;
+
+const ctx=(()=>{
+  let d=document.createElement("div");
+  d.style.textAlign="center";
+  body.append(d);
+  let c=document.createElement("canvas");
+  c.width=c.height=2*CSIZE;
+  d.append(c);
+  return c.getContext("2d");
+})();
+ctx.transform(1,0,0,1,CSIZE,CSIZE);
+ctx.lineWidth=4;
+ctx.lineJoin="round";
+
+onresize=()=>{ 
+  let D=Math.min(window.innerWidth,window.innerHeight)-40; 
+  ctx.canvas.style.width=ctx.canvas.style.height=D+"px";
+}
+
+const getRandomInt=(min,max,low)=>{
+  if (low) return Math.floor(Math.random()*Math.random()*(max-min))+min;
+  else return Math.floor(Math.random()*(max-min))+min;
+}
+
+var colors=[];
+var setColors=()=>{
+  colors=[];
+  let colorCount=6;
+  let hue=getRandomInt(180,270);
+  for (let i=0; i<colorCount; i++) {
+    let hd=Math.round(180/colorCount)*i+getRandomInt(-10,10);
+    let h=(hue+hd)%360;
+    colors.splice(getRandomInt(0,colors.length+1),0,"hsl("+h+",98%,60%)");
+  }
+}
+
+const DM1=new DOMMatrix([-1,0,0,1,0,0]);
+const DM2=new DOMMatrix([1,0,0,-1,0,0]);
+const DM3=new DOMMatrix([0.5,-0.866,0.866,0.5,0,0]);
+const DM4=new DOMMatrix([0.5,0.866,-0.866,0.5,0,0]);
+
+function Line() {
+  this.x0=0;
+  this.y0=0;
+  this.a=0;
+  this.b=0;
+  this.len=8;
+  this.t=0;
+  this.pathLength=0;
+  this.generatePath=()=>{
+    this.path=new Path2D();
+    this.xpol=[Math.cos,Math.sin][getRandomInt(0,2)];
+    if (this.xpol==Math.sin) this.ypol=Math.cos;
+    else this.ypol=[Math.cos,Math.sin][getRandomInt(0,2)];
+    this.Kx=8*Math.random();
+    this.Ky=8*Math.random();
+    let c=0;
+    this.pathLength=0;
+    this.path.moveTo(0,0);
+    let x=0;
+    let y=0;
+    do {
+      let lx=this.len*this.xpol(this.a);
+      let ly=this.len*this.ypol(this.b);
+      x+=lx;
+      y+=ly;
+      this.pathLength+=Math.pow(lx*lx+ly*ly,0.5);
+      this.path.lineTo(x,y);
+      if (Math.abs(x)>CSIZE || Math.abs(y)>CSIZE) break;
+      if (c>1200) break;
+      this.x0=x;
+      this.y0=y;
+      this.a=this.Kx*Math.sin(c/20);
+      this.b=this.Ky*Math.sin(c/20);
+      c++;
+    } while(true);
+    if (c>1200) this.generatePath();
+    else {
+      this.lineLength=Math.min(800,Math.round(this.pathLength/2));
+      this.col=colors[getRandomInt(0,colors.length)];
+    }
+  }
+  this.draw2=()=>{
+    let p=new Path2D(this.path);
+    p.addPath(p,DM1);
+    p.addPath(p,DM2);
+    let p2=new Path2D(p);
+    p2.addPath(p,DM3);
+    p2.addPath(p,DM4);
+    ctx.setLineDash([this.lineLength,100000]);    
+    ctx.lineDashOffset=this.lineLength-this.t;
+    ctx.strokeStyle=this.col;
+    ctx.lineWidth=8*(this.t/(this.lineLength+this.pathLength));
+    ctx.stroke(p2);
+  }
+}
+
+function start() {
+  if (stopped) {
+    requestAnimationFrame(animate);
+    stopped=false;
+  } else {
+    stopped=true;
+  }
+}
+ctx.canvas.addEventListener("click", start, false);
+
+var stopped=true;
+function animate(ts) {
+  if (stopped) return;
+  ctx.clearRect(-CSIZE,-CSIZE,2*CSIZE,2*CSIZE);
+  lines.forEach((l)=>{ 
+    l.t+=2;
+    l.draw2();
+    if (l.t>l.lineLength+l.pathLength) {
+      l.generatePath();
+      l.t=0;
+    }
+  });
+  requestAnimationFrame(animate);
+}
+
+onresize();
+setColors();
+
+const COUNT=6;
+const lines=new Array(COUNT);
+for (let i=0; i<COUNT; i++) {
+  lines[i]=new Line();
+  lines[i].generatePath();
+}
+
+start();
+        </script>
+</body>
+</html>

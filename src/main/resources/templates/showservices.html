@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Welcom to FHK CRM</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href='stylecard.css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+</head>
+<body>
+        <nav>
+          <div class="navbar">
+            <div class="container nav-container">
+                <input class="checkbox" type="checkbox" name="" id="" />
+                <div class="hamburger-lines">
+                  <span  class="line line1"></span>
+                  <span  class="line line2"></span>
+                  <span  class="line line3"></span>
+                </div>  
+              <div class="logo">
+                <h1>FHK</h1>
+              </div>
+              <div class="menu-items">
+                <li><a href="/">Home</a></li>
+                <li><a href="/client">New Customer</a></li>
+                <li><a href="/order">New service</a></li>
+                <li><a href="/showclients">Show customers</a></li>
+                <li><a href="/showservices">Show all services</a></li>
+                <li><a href="#">contact</a></li>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+<section class="hero-section">
+		<div class="card-grid" >
+		    <a class="card" href="#" th:each="c : ${client}">
+		      <div class="card__background" style='background-image: url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-040.jpg");'></div>
+		      <div class="card__content" >
+		        <h3 class="card__heading" th:text="${c.firstName}" th:attr="style=${c.state == 1 ? 'color:green' : 'color:red'}"></h3>
+		        <p class="card__category" th:text="${c.email}"></p>
+		        <p class="card__category" th:text="${c.phone}"></p>
+		        <p class="card__category">Prestations :</p>
+		        <div class="cover-chip" th:each="o : ${c.orders}">
+		        <div class="chip" th:text="${o.typePresta}" th:if="${o.state == 0}" style="background-color:#FF0000"><a th:href="@{/deleteorder/{id}(id=${o.id} )}"></a></div >
+		        <div class="chip" th:text="${o.typePresta}" th:if="${o.state == 1}" style="background-color:#FFA500"><a th:href="@{/deleteorder/{id}(id=${o.id} )}"></a></div >
+		        <div class="chip" th:text="${o.typePresta}" th:if="${o.state == 2}" style="background-color:#00FF00"><a th:href="@{/deleteorder/{id}(id=${o.id} )}"></a></div >
+		        </div>
+		      </div>
+		    </a>
+		    </div>
+		</section>
+		<script >document.body.style.backgroundColor = 'white';</script>
+</body>
+</html>

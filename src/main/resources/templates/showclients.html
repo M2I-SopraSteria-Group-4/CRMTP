@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Welcom to FHK CRM</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href='stylecard.css'>
+    <link rel='stylesheet' href='styletable.css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+</head>
+<body>
+        <nav>
+          <div class="navbar">
+            <div class="container nav-container">
+                <input class="checkbox" type="checkbox" name="" id="" />
+                <div class="hamburger-lines">
+                  <span  class="line line1"></span>
+                  <span  class="line line2"></span>
+                  <span  class="line line3"></span>
+                </div>  
+              <div class="logo">
+                <h1>FHK</h1>
+              </div>
+              <div class="menu-items">
+                <li><a href="/">Home</a></li>
+                <li><a href="/client">New Customer</a></li>
+                <li><a href="/order">New service</a></li>
+                <li><a href="/showclients">Show customers</a></li>
+                <li><a href="/showservices">Show all services</a></li>
+                <li><a href="#">contact</a></li>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <table class="table-fill">
+			<thead>
+			<tr>
+			<th class="text-left">First name</th>
+			<th class="text-left">Last name</th>
+			<th class="text-left">Email</th>
+			<th class="text-left">Phone</th>
+			<th class="text-left">Address</th>
+			<th class="text-left">Zip code</th>
+			<th class="text-left">City</th>
+			<th class="text-left">Country</th>
+			<th class="text-left">State</th>
+			<th class="text-left">Update</th>
+			<th class="text-left">Delete</th>
+			</tr>
+			</thead>
+			<tbody class="table-hover">
+			<tr th:each="client : ${clients}">
+			<td class="text-left" th:text="${client.firstName}"></td>
+			<td class="text-left" th:text="${client.lastName}"></td>
+			<td class="text-left" th:text="${client.email}"></td>
+			<td class="text-left" th:text="${client.phone}"></td>
+			<td class="text-left" th:text="${client.address}"></td>
+			<td class="text-left" th:text="${client.zipCode}"></td>
+			<td class="text-left" th:text="${client.city}"></td>
+			<td class="text-left" th:text="${client.country}"></td>
+			<td class="text-left">
+				<ion-icon name="power-outline" th:attr="id=${client.state == 1 ? 'green' : 'red'}"></ion-icon>
+			</td>
+			<td class="text-left"><a th:href="@{/updateclient/{id}(id=${client.id} )}"><ion-icon name="build-outline"></ion-icon></a></td>
+			<td class="text-left"><a th:href="@{/deleteclient/{id}(id=${client.id} )}"><ion-icon style="color:red" name="trash-outline"></ion-icon></a></td>
+			</tr>
+			</tbody>
+        </table>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
